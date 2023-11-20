@@ -1,0 +1,9 @@
+<section class="align-items-center container-fluid d-flex flex-column">
+  <h3>Welcome to Wissen Coding Challenge!</h3>
+
+  <ng-container *ngIf="user">
+    <p>Hello {{ user.first_name }}</p>
+
+    <img [src]="user.avatar" alt="User logo" />
+  </ng-container>
+</section>

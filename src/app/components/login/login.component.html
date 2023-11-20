@@ -1,0 +1,93 @@
+<div class="container-fluid m-4">
+  <h5>Hello there! Sign in to continue</h5>
+
+  <div style="min-width: 350px" class="w-25" *ngIf="loginForm">
+    <form class="form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="inputEmail" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          [class.border-danger]="
+            formControls['email'].dirty && formControls['email'].invalid
+          "
+          id="inputEmail"
+          formControlName="email"
+          placeholder="Enter Email"
+        />
+        <div
+          class="text-danger m-1"
+          *ngIf="formControls['email'].dirty && formControls['email'].invalid"
+        >
+          Email is required
+        </div>
+      </div>
+      <div class="mb-3 input-group">
+        <label for="inputPassword" class="form-label">Password</label>
+        <div class="input-group">
+          <input
+            #passwordInput
+            type="password"
+            class="form-control"
+            id="inputPassword"
+            formControlName="password"
+            placeholder="Enter Password"
+          />
+          <span
+            class="input-group-text"
+            id="toggle-password"
+            (click)="togglePasswordVisibility()"
+          >
+            <i
+              class="bi"
+              [ngClass]="{
+                'bi-eye': passwordVisible,
+                'bi-eye-slash': !passwordVisible
+              }"
+            ></i>
+          </span>
+        </div>
+        <div
+          class="text-danger m-1"
+          *ngIf="
+            formControls['password'].dirty &&
+            formControls['password'].hasError('required')
+          "
+        >
+          Password is required
+        </div>
+        <div
+          class="text-danger m-1"
+          *ngIf="
+            formControls['password'].dirty &&
+            formControls['password'].hasError('pattern')
+          "
+        >
+          Password must contain at least 1 uppercase, 1 lower case and a digit.
+          And total length should be more than 8.
+        </div>
+      </div>
+      <div class="d-flex mb-3 form-check">
+        <input
+          type="checkbox"
+          class="form-check-input me-2"
+          id="termsAndCondition"
+          style="width: 1.3em; height: 1.3em"
+          formControlName="termsAndCondition"
+        />
+        <label class="form-check-label text-muted" for="termsAndCondition"
+          >By creating or logging into an account, you are agreeing with our
+          <b class="text-black">Terms & Conditions</b> and
+          <b class="text-black">Privacy Policys.</b></label
+        >
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary w-100"
+        [disabled]="loginForm.invalid"
+      >
+        Next {{ termsAndCondition }}
+      </button>
+    </form>
+  </div>
+</div>
